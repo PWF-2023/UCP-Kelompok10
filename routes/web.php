@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // import my controller
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 
 /*
