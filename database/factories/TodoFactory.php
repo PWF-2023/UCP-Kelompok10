@@ -20,6 +20,7 @@ class TodoFactory extends Factory
             'user_id' => rand(1,100 ),
             'title'=>ucwords(fake()->sentence()),
             'is_completed'=>rand(0,1),
+            'category_id'=>rand(1,100),
         ];
     }
 }

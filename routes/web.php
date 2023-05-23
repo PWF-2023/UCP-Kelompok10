@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/todo/{todo}', [TodoController::class, 'destroy'])->name('todo.destroy');
     Route::delete('/todo', [TodoController::class, 'destroyCompleted'])->name('todo.deleteallcompleted');
 
+    Route::get('category', [CategoryController::class, 'index'])->name(('category.index'));
+    Route::post('category/create', [CategoryController::class, 'store'])->name('category.create');
+
     Route::middleware('admin')->group(function () {
 
         // route get index user
