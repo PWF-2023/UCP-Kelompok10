@@ -23,16 +23,18 @@
 
                         <div class="mb-6">
                             <x-input-label for="category" :value="__('Category')" />
-                            <select id="category" name="category_id" class="block w-full mt-1">
+                            <x-select id="category" name="category_id" class="block w-full mt-1">
                                 <option value="">Select category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" @if($todo->category_id === $category->id) selected @endif>{{ $category->title }}</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        @if ($todo->category_id === $category->id) selected @endif>{{ $category->title }}
+                                    </option>
                                 @endforeach
-                            </select>
+                            </x-select>
                             <x-input-error class="mt-2" :messages="$errors->get('category_id')" />
                         </div>
 
-         
+
                         <div class="flex items-center gap-4">
                             <x-primary-button>{{ __('Save') }}</x-primary-button>
                             <x-cancel-button href="{{ route('todo.index') }}" />

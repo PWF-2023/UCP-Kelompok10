@@ -58,8 +58,13 @@
                                     </td>
                                     <!-- Add table row field category -->
                                     <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                                         {{ $todo->category->title }} <!-- Data from relation in model todo so get data title with category->title -->
-                                         </td>
+                                        @if ($todo->category_id == null)
+                                            <span></span>
+                                        @else
+                                            {{ $todo->category->title }}
+                                        @endif
+                                        <!-- Data from relation in model todo so get data title with category->title -->
+                                    </td>
                                     <td class="hidden px-6 py-4 md:block">
                                         @if ($todo->is_completed == false)
                                             <span

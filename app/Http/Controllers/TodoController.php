@@ -26,8 +26,8 @@ class TodoController extends Controller
     public function store(Request $request, Todo $todo)
     {
         $request->validate([
-            'title'       => 'required|max:255',
-            'category_id' => 'required|exists:categories,id', // add validation with rules when the data is in categories
+            'title' => 'required|max:255',
+            'category_id', // add validation with rules when the data is in categories
         ]);
 
         $todo = Todo::create([
@@ -42,7 +42,7 @@ class TodoController extends Controller
     // return view todo.create
     public function create()
     {
-        $categories = Category::get(); // retive data from category table
+        $categories = Category::where('user_id', auth()->user()->id)->get(); // retive data from category table
         // dd($categories);
 
         return view('todo.create', compact('categories')); //get data with categories included
@@ -52,7 +52,7 @@ class TodoController extends Controller
     // return view todo.edit
     public function edit(Todo $todo)
     {
-        $categories = Category::get(); //same as above
+        $categories = Category::where('user_id', auth()->user()->id)->get(); //same as above
 
         if (auth()->user()->id == $todo->user_id) {
             // dd($todo);
@@ -66,8 +66,8 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $request->validate([
-            'title'       => 'required|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'title' => 'required|max:255',
+            'category_id',
 
         ]);
 
