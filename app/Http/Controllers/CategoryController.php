@@ -20,11 +20,11 @@ class CategoryController extends Controller
     public function store(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'title' => 'required|max:255',
         ]);
 
         $category = Category::create([
-            'name'    => ucfirst($request->name),
+            'title'   => ucfirst($request->title),
             'user_id' => auth()->user()->id,
         ]);
 

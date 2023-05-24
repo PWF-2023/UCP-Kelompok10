@@ -26,13 +26,13 @@ class TodoController extends Controller
     public function store(Request $request, Todo $todo)
     {
         $request->validate([
-            'title' => 'required|max:255',
+            'title'       => 'required|max:255',
             'category_id' => 'required|exists:categories,id', // add validation with rules when the data is in categories
         ]);
 
         $todo = Todo::create([
-            'title' => ucfirst($request->title),
-            'user_id' => auth()->user()->id,
+            'title'       => ucfirst($request->title),
+            'user_id'     => auth()->user()->id,
             'category_id' => $request->category_id,
         ]);
 
@@ -66,13 +66,13 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $request->validate([
-            'title' => 'required|max:255',
+            'title'       => 'required|max:255',
             'category_id' => 'required|exists:categories,id',
-            
+
         ]);
 
         $todo->update([
-            'title' => ucfirst($request->title),
+            'title'       => ucfirst($request->title),
             'category_id' => $request->category_id,
         ]);
 
