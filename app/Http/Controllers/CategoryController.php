@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::where('user_id', auth()->user()->id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('title', 'asc')
             ->get();
 
         return view('category.index', compact('categories'));
@@ -50,11 +50,11 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'title' => 'required|max:255',
         ]);
 
         $category->update([
-            'name' => ucfirst($request->name),
+            'title' => ucfirst($request->name),
         ]);
 
         return redirect()->route('category.index')->with('success', 'Category updated successfully!');
