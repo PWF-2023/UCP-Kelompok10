@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use App\Models\Category;
 
 class TodoController extends Controller
 {
@@ -13,6 +14,7 @@ class TodoController extends Controller
         $todos = Todo::where('user_id', auth()->user()->id)->
             orderBy('is_completed', 'asc')->
             orderBy('created_at', 'desc')->
+            with('category')-> // include table category
             get();
         // collection of todos
 
@@ -25,10 +27,13 @@ class TodoController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id', // add validation with rules when the data is in categories
         ]);
+
         $todo = Todo::create([
-            'title'   => ucfirst($request->title),
+            'title' => ucfirst($request->title),
             'user_id' => auth()->user()->id,
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('todo.index')->with('success', 'Todo created successfully!');
@@ -37,16 +42,22 @@ class TodoController extends Controller
     // return view todo.create
     public function create()
     {
-        return view('todo.create');
+        $categories = Category::get(); // retive data from category table
+        // dd($categories);
+
+        return view('todo.create', compact('categories')); //get data with categories included
+        // return view('todo.create');
     }
 
     // return view todo.edit
     public function edit(Todo $todo)
     {
+        $categories = Category::get(); //same as above
+
         if (auth()->user()->id == $todo->user_id) {
             // dd($todo);
 
-            return view('todo.edit', compact('todo'));
+            return view('todo.edit', compact(['todo', 'categories'])); //same as above #2
         } else {
             return redirect()->route('todo.index')->with('danger', 'You are not authorized to edit this todo!');
         }
@@ -56,10 +67,13 @@ class TodoController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id',
+            
         ]);
 
         $todo->update([
             'title' => ucfirst($request->title),
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('todo.index')->with('success', 'Todo updated successfully!');

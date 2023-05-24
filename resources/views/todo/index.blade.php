@@ -37,6 +37,10 @@
                                 <th scope="col" class="px-6 py-3">
                                     Title
                                 </th>
+                                <!-- Add table head for category -->
+                                <th scope="col" class="px-6 py-3">
+                                    category
+                                </th>
                                 <th scope="col" class="hidden px-6 py-3 md:block">
                                     Status
                                 </th>
@@ -52,6 +56,10 @@
                                         <a href="{{ route('todo.edit', $todo) }}"
                                             class="hover:underline">{{ $todo->title }}</a>
                                     </td>
+                                    <!-- Add table row field category -->
+                                    <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                                         {{ $todo->category->title }} <!-- Data from relation in model todo so get data title with category->title -->
+                                         </td>
                                     <td class="hidden px-6 py-4 md:block">
                                         @if ($todo->is_completed == false)
                                             <span

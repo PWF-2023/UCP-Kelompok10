@@ -20,4 +20,11 @@ class Todo extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Add Relation to Category Models
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }
